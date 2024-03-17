@@ -1,0 +1,448 @@
+/*
+MIT License
+
+Copyright (c) 2020 by Vineeth.TR
+Copyright (c) 2024 by Madflows (Folarin Lawal)
+Copyright (c) 2024 by gharsh11032000 (Harsh Gupta)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
+/* General CSS */
+#container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.simpsons-img {
+  width: 15em;
+}
+
+#titulo {
+  font-size: 20px;
+  padding: 0.5em;
+  margin: 5px;
+  text-align: center;
+}
+
+#buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  padding: 1em;
+  margin: 1rem;
+}
+
+.randomButton {
+  position: relative;
+  background-color: transparent;
+  color: #e8e8e8;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 10px;
+  width: 150px;
+  height: 60px;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.randomButton::before {
+  content: "Fetch!";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+  color: #000000;
+  transform: translate(0%, 90%);
+  z-index: 99;
+  position: relative;
+  transform-origin: bottom;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.randomButton::after {
+  content: "Random Quote";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #333;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform-origin: top;
+  transform: translate(0%, -100%);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.randomButton:hover::before {
+  transform: translate(0%, 0%);
+}
+
+.randomButton:hover::after {
+  transform: translate(0%, -200%);
+}
+
+.randomButton:focus {
+  outline: none;
+}
+
+.randomButton:active {
+  scale: 0.95;
+}
+
+#randomQuoteButton {
+  margin: 10px;
+  width: 90%;
+  padding: 5px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+#fetchQuotesButton {
+  margin: 20px;
+  width: 100%;
+  padding: 15px;
+}
+
+form label {
+  display: flex;
+  padding: 10px;
+  text-align: center;
+}
+
+.input {
+  border-radius: 10px;
+  outline: 2px solid #3a3a3a;
+  border: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background: linear-gradient(-135deg, #7f7fd5, #86a8e7, #91eae4);
+  outline-offset: 3px;
+  padding: 10px 1rem;
+  transition: 0.25s;
+  height: 25px;
+}
+
+.input:focus {
+  outline-offset: 5px;
+  background-color: #fff;
+}
+
+#characterInput {
+  margin: auto;
+  padding: 5px;
+  width: 94.5%;
+  margin-bottom: 10px;
+}
+
+#numQuotesInput {
+  margin: auto;
+  padding: 5px;
+  width: 94.5%;
+}
+
+label {
+  font-size: 25px;
+  text-align: center;
+}
+
+button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 15px;
+}
+
+button.load-more {
+  font-weight: 600;
+  color: #382b22;
+  text-transform: uppercase;
+  padding: 1.25em 2em;
+  background: #ffffff;
+  border: 2px solid #333132;
+  border-radius: 0.75em;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: background 150ms cubic-bezier(0, 0, 0.58, 1),
+    -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+    background 150ms cubic-bezier(0, 0, 0.58, 1),
+    -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+
+button.load-more::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  border-radius: inherit;
+  -webkit-box-shadow: 0 0 0 2px #ffffff, 0 0.625em 0 0 #ffffff;
+  box-shadow: 0 0 0 2px #333132, 0 0.625em 0 0 #ffffff;
+  -webkit-transform: translate3d(0, 0.75em, -1em);
+  transform: translate3d(0, 0.75em, -1em);
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+    box-shadow 150ms cubic-bezier(0, 0, 0.58, 1),
+    -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1),
+    -webkit-box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+
+button.load-more:hover {
+  background: #ffffff;
+  -webkit-transform: translate(0, 0.25em);
+  transform: translate(0, 0.25em);
+}
+
+button.load-more:hover::before {
+  -webkit-box-shadow: 0 0 0 2px #333132, 0 0.5em 0 0 #ffffff;
+  box-shadow: 0 0 0 2px #333132, 0 0.5em 0 0 #ffffff;
+  -webkit-transform: translate3d(0, 0.5em, -1em);
+  transform: translate3d(0, 0.5em, -1em);
+}
+
+button.load-more:active {
+  background: #ffffff;
+  -webkit-transform: translate(0em, 0.75em);
+  transform: translate(0em, 0.75em);
+}
+
+button.load-more:active::before {
+  -webkit-box-shadow: 0 0 0 2px #333132, 0 0 #ffffff;
+  box-shadow: 0 0 0 2px #333132, 0 0 #ffffff;
+  -webkit-transform: translate3d(0, 0, -1em);
+  transform: translate3d(0, 0, -1em);
+}
+
+#loadMoreButton {
+  justify-self: flex-end;
+  margin-top: 10px;
+}
+
+#quoteContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cube-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: lightblue;
+  width: 250px;
+  height: fit-content;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  padding: 20px;
+  margin: 10px;
+}
+
+.cube-container img {
+  width: 120px;
+  height: fit-content;
+}
+
+.cube-container p {
+  padding: 10px;
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* CSS for the loader */
+
+#loaded-page {
+  display: none;
+}
+.loader {
+  width: 0;
+  height: 4.8px;
+  display: inline-block;
+  position: relative;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 100);
+  box-sizing: border-box;
+  animation: animFw 4.5s linear infinite;
+  margin-top: 50vh;
+}
+.loader::after,
+.loader::before {
+  content: "";
+  width: 10px;
+  height: 1px;
+  background: #fff;
+  position: absolute;
+  top: 9px;
+  right: -2px;
+  opacity: 0;
+  transform: rotate(-45deg) translateX(0px);
+  box-sizing: border-box;
+  animation: coli1 0.4s linear infinite;
+}
+.loader::before {
+  top: -4px;
+  transform: rotate(45deg);
+  animation: coli2 0.4s linear infinite;
+}
+
+@keyframes animFw {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes coli1 {
+  0% {
+    transform: rotate(-45deg) translateX(0px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: rotate(-45deg) translateX(-45px);
+    opacity: 0;
+  }
+}
+
+@keyframes coli2 {
+  0% {
+    transform: rotate(45deg) translateX(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(45deg) translateX(-45px);
+    opacity: 0.7;
+  }
+}
+
+/* CSS for responsive design */
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .cube-container {
+    width: 400px;
+  }
+  .simpsons-img {
+    width: 20em;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 900px) {
+  #quoteContainer {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cube-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 295px;
+    height: 295px;
+    margin: 4px;
+  }
+  .simpsons-img {
+    width: 20em;
+  }
+}
+
+@media screen and (min-width: 901px) and (max-width: 1280px) {
+  #quoteContainer {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  #quoteContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .cube-container {
+    width: 350px;
+    height: 350px;
+  }
+  .cube-container img {
+    width: 150px;
+    height: fit-content;
+  }
+  .simpsons-img {
+    width: 25em;
+  }
+}
+
+@media screen and (min-width: 1281px) {
+  #quoteContainer {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cube-container {
+    width: 500px;
+    height: 500px;
+  }
+  .cube-container img {
+    width: 200px;
+    height: fit-content;
+  }
+
+  .cube-container p {
+    padding: 10px;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: center;
+  }
+  .simpsons-img {
+    width: 35em;
+  }
+}
