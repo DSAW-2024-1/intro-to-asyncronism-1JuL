@@ -81,7 +81,6 @@ async function fetchMoreCharacters() {
 
     await fetchQuotes(randomCharacters);
     charactersLoaded = charactersLoaded.concat(randomCharacters);
-    console.log(randomCharacters);
   } catch (error) {
     console.error("Error fetching quotes:", error);
   }
@@ -179,7 +178,6 @@ function displayQuotes(quotes) {
     quoteElement.appendChild(imageElement);
     quoteElement.appendChild(quoteTextElement);
     quoteContainer.appendChild(quoteElement);
-    console.log(charactersLoaded);
   });
 }
 
